@@ -24,7 +24,7 @@ yaml.add_representer(literal_unicode, literal_unicode_representer)
 config = ConfigParser.RawConfigParser(allow_no_value = True)
 config.optionxform = str
 # config.readfp(sys.stdin)
-config_reader = config.parser.read_file
+config_reader = config.read_file
 config_reader(sys.stdin)
 
 inventory = {}
