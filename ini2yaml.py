@@ -35,7 +35,8 @@ noQuotesNeededRegex = re.compile("^([-.0-9a-zA-Z]+|'[^']+'|\"[^\"]+\")$")
 # Parse host variable and return corresponding YAML object
 def parse_value(value):
   if noQuotesNeededRegex.match(value):  # Integers, booleans and quoted strings strings must not be quoted
-    result = yaml.load('value: ' + value)['value']
+    # result = yaml.load('value: ' + value)['value']
+    result = yaml.load('value: ' + value)
   else:
     result = yaml.load('value: "' + value + '"')['value']
   if isinstance(result, six.string_types):
