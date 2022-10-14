@@ -70,4 +70,4 @@ for section in config.sections():
       inventory.setdefault('all', {}).setdefault('children', {}).setdefault(group[0], {}).setdefault('children', {})[name] = {}
 
 
-print yaml.dump(inventory, default_flow_style=False, width=float("inf"))
+print(yaml.dump(inventory, default_flow_style=False, width=float("inf")))
