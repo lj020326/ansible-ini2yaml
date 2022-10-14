@@ -2,7 +2,8 @@
 
 from collections import OrderedDict
 import sys
-import ConfigParser
+#import ConfigParser
+import configparser
 import yaml
 import ast
 import re
@@ -15,7 +16,8 @@ def literal_unicode_representer(dumper, data):
 
 yaml.add_representer(literal_unicode, literal_unicode_representer)
 
-config = ConfigParser.RawConfigParser(allow_no_value = True)
+# config = ConfigParser.RawConfigParser(allow_no_value = True)
+config = configparser.RawConfigParser(allow_no_value=True)
 config.optionxform = str
 config.readfp(sys.stdin)
 
