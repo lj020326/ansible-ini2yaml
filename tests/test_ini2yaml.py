@@ -36,4 +36,3 @@ def test_hostvars(request, tmpdir, ansible_adhoc):
     normalize(ini_hostvars, yaml_hostvars)
 
     assert ini_hostvars == yaml_hostvars
-    
