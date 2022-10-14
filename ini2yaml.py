@@ -67,7 +67,7 @@ for section in config.sections():
 
       inventory.setdefault('all', {}).setdefault('children', {}).setdefault(group[0], {}).setdefault('hosts', {})[hostname] = {}
       for hostvar in hostvars:
-        print("hostvar => %s" % hostvar)
+        print("hostvar =>", hostvar)
         print("hostvar[1] => %s" % (hostvar[1]))
         value = parse_value(hostvar[1])
         print("value => %s" % (value))
