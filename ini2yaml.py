@@ -34,24 +34,43 @@ noQuotesNeededRegex = re.compile("^([-.0-9a-zA-Z]+|'[^']+'|\"[^\"]+\")$")
 
 # Parse host variable and return corresponding YAML object
 def parse_value(value):
-  if noQuotesNeededRegex.match(value):  # Integers, booleans and quoted strings strings must not be quoted
-    # result = yaml.load('value: ' + value)['value']
-    # result = yaml.load('value: ' + value)
-    result = yaml.load(value)
-  else:
-    result = yaml.load('value: "' + value + '"')['value']
-  if isinstance(result, six.string_types):
-    if '\\n' in result:  # Use YAML block literal for multi-line strings
-      return literal_unicode(result.replace('\\n', '\n'))
+  if value is None:
+    return ''
+  elif isinstance(value, bool):
+    if value:
+      return '1'
     else:
-      try:  # Unwrap nested YAML structures
-        new_result = yaml.load('value: ' + result)['value']
-        if isinstance(new_result, list) or isinstance(new_result, dict):
-          result = new_result
-      except:
-        pass
+      return '0'
+  elif isinstance(value, string_types):
+    if value.lower() in BOOLEANS_TRUE:
+      return '1'
+    elif value.lower() in BOOLEANS_FALSE:
+      return '0'
+    else:
+      return value.strip()
+  else:
+    return value
 
-  return result
+#
+# def parse_value(value):
+#   if noQuotesNeededRegex.match(value):  # Integers, booleans and quoted strings strings must not be quoted
+#     # result = yaml.load('value: ' + value)['value']
+#     # result = yaml.load('value: ' + value)
+#     result = yaml.load(value)
+#   else:
+#     result = yaml.load('value: "' + value + '"')['value']
+#   if isinstance(result, six.string_types):
+#     if '\\n' in result:  # Use YAML block literal for multi-line strings
+#       return literal_unicode(result.replace('\\n', '\n'))
+#     else:
+#       try:  # Unwrap nested YAML structures
+#         new_result = yaml.load('value: ' + result)['value']
+#         if isinstance(new_result, list) or isinstance(new_result, dict):
+#           result = new_result
+#       except:
+#         pass
+#
+#   return result
 
 
 for section in config.sections():
