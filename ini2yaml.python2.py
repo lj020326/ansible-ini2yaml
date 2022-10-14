@@ -1,27 +1,23 @@
-#!/usr/bin/env python3
+#! /usr/bin/env python
 
 from collections import OrderedDict
 import sys
+#import ConfigParser
+import configparser
 import yaml
 import ast
 import re
-import six
 from collections import defaultdict
 
-try:
-    import ConfigParser
-except ImportError:
-    import configparser as ConfigParser
-
-class literal_unicode(six.text_type):
-    pass
+class literal_unicode(unicode): pass
 
 def literal_unicode_representer(dumper, data):
     return dumper.represent_scalar(u'tag:yaml.org,2002:str', data, style='|')
 
 yaml.add_representer(literal_unicode, literal_unicode_representer)
 
-config = ConfigParser.RawConfigParser(allow_no_value = True)
+# config = ConfigParser.RawConfigParser(allow_no_value = True)
+config = configparser.RawConfigParser(allow_no_value=True)
 config.optionxform = str
 config.readfp(sys.stdin)
 
@@ -36,7 +32,7 @@ def parse_value(value):
     result = yaml.load('value: ' + value)['value']
   else:
     result = yaml.load('value: "' + value + '"')['value']
-  if isinstance(result, six.string_types):
+  if isinstance(result, basestring):
     if '\\n' in result:  # Use YAML block literal for multi-line strings
       return literal_unicode(result.replace('\\n', '\n'))
     else:
