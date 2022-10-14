@@ -6,6 +6,7 @@ import yaml
 import ast
 import re
 import six
+from ansible.module_utils.common.text.converters import to_text
 from collections import defaultdict
 
 try:
@@ -33,23 +34,41 @@ varRegex = re.compile("[\t ]*([a-zA-Z][a-zA-Z0-9_]+)=('[^']+'|\"[^\"]+\"|[^ ]+)"
 noQuotesNeededRegex = re.compile("^([-.0-9a-zA-Z]+|'[^']+'|\"[^\"]+\")$")
 
 # Parse host variable and return corresponding YAML object
-def parse_value(value):
-  if value is None:
-    return ''
-  elif isinstance(value, bool):
-    if value:
-      return '1'
-    else:
-      return '0'
-  elif isinstance(value, string_types):
-    if value.lower() in BOOLEANS_TRUE:
-      return '1'
-    elif value.lower() in BOOLEANS_FALSE:
-      return '0'
-    else:
-      return value.strip()
-  else:
-    return value
+def parse_value(v):
+  '''
+  Attempt to transform the string value from an ini file into a basic python object
+  (int, dict, list, unicode string, etc).
+  '''
+  try:
+    v = ast.literal_eval(v)
+  # Using explicit exceptions.
+  # Likely a string that literal_eval does not like. We wil then just set it.
+  except ValueError:
+    # For some reason this was thought to be malformed.
+    pass
+  except SyntaxError:
+    # Is this a hash with an equals at the end?
+    pass
+  return to_text(v, nonstring='passthru', errors='surrogate_or_strict')
+
+
+# def parse_value(value):
+#   if value is None:
+#     return ''
+#   elif isinstance(value, bool):
+#     if value:
+#       return '1'
+#     else:
+#       return '0'
+#   elif isinstance(value, string_types):
+#     if value.lower() in BOOLEANS_TRUE:
+#       return '1'
+#     elif value.lower() in BOOLEANS_FALSE:
+#       return '0'
+#     else:
+#       return value.strip()
+#   else:
+#     return value
 
 #
 # def parse_value(value):
