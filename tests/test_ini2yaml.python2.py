@@ -1,7 +1,6 @@
-#!/usr/bin/env python3
+#! /usr/bin/env python
 
 import os
-import six
 import subprocess
 import yaml
 
@@ -14,12 +13,12 @@ def normalize(hostvars_ini, hostvars_yaml):
     remove_keys(hostvars_ini, ignored_keys)
     remove_keys(hostvars_yaml, ignored_keys)
 
-    for key, value in hostvars_yaml.items():
-        if isinstance(value, bool) and isinstance(hostvars_ini[key], six.string_types):
+    for key, value in hostvars_yaml.iteritems():
+        if isinstance(value, bool) and isinstance(hostvars_ini[key], basestring):
             hostvars_ini[key] = yaml.load("value: " + hostvars_ini[key])['value']  # Convert to boolean according to YAML if boolean in YAML inventory
-        elif isinstance(value, dict) and isinstance(hostvars_ini[key], six.string_types):
+        elif isinstance(value, dict) and isinstance(hostvars_ini[key], basestring):
             hostvars_ini[key] = yaml.load("value: " + hostvars_ini[key])['value']  # Unwrap nested dicts if unwrapped in YAML inventory
-        elif isinstance(value, list) and isinstance(hostvars_ini[key], six.string_types):
+        elif isinstance(value, list) and isinstance(hostvars_ini[key], basestring):
             hostvars_ini[key] = yaml.load("value: " + hostvars_ini[key])['value']  # Unwrap nested lists if unwrapped in YAML inventory
 
 def test_hostvars(request, tmpdir, ansible_adhoc):
@@ -36,4 +35,3 @@ def test_hostvars(request, tmpdir, ansible_adhoc):
     normalize(ini_hostvars, yaml_hostvars)
 
     assert ini_hostvars == yaml_hostvars
-    
