@@ -68,6 +68,8 @@ for section in config.sections():
       inventory.setdefault('all', {}).setdefault('children', {}).setdefault(group[0], {}).setdefault('hosts', {})[hostname] = {}
       for hostvar in hostvars:
         value = parse_value(hostvar[1])
+        print("hostvar => %s", hostvar)
+        print("value => %s", value)
         inventory.setdefault('all', {}).setdefault('children', {}).setdefault(group[0], {}).setdefault('hosts', {})[hostname][hostvar[0]] = value
   elif group[1] == 'vars':  # section contains group vars
     for name, value in config.items(section):
