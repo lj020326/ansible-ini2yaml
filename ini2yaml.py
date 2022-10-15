@@ -61,7 +61,7 @@ for section in config.sections():
         value = name + ':' + value
       else:
         value = name
-      print("value=", host)
+      print("value=", value)
 
       host = re.split(' |\t', value, 1)
       print("host=", host)
