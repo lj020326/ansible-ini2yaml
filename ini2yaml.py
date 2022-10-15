@@ -69,7 +69,7 @@ for section in config.sections():
 
       host = re.split(' |\t', value, 1)
       print("host=", host)
-      hostname = host[0]
+      hostname = host[0].replace('=', ':')
       print("hostname=", hostname)
       hostvars = host[1] if len(host) > 1 else ''
       print("hostvars[0]=", hostvars)

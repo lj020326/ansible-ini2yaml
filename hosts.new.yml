@@ -1,10 +1,10 @@
 group= ['local']
 name= localhost ansible_host
 value= 127.0.0.1 ansible_connection=local
-host= ['localhost', 'ansible_host:127.0.0.1 ansible_connection=local']
+host= ['localhost', 'ansible_host=127.0.0.1 ansible_connection=local']
 hostname= localhost
-hostvars[0]= ansible_host:127.0.0.1 ansible_connection=local
-hostvars= [('ansible_connection', 'local')]
+hostvars[0]= ansible_host=127.0.0.1 ansible_connection=local
+hostvars= [('ansible_host', '127.0.0.1'), ('ansible_connection', 'local')]
 group= ['node_offline']
 name= proxmox01
 value= None
@@ -77,8 +77,8 @@ group= ['cicd_node', 'children']
 group= ['cicd_node']
 name= admin[01
 value= 03]
-host= ['admin[01:03]']
-hostname= admin[01:03]
+host= ['admin[01=03]']
+hostname= admin[01=03]
 hostvars[0]= 
 hostvars= []
 group= ['chef_inspec', 'children']
@@ -169,22 +169,22 @@ hostvars= []
 group= ['vmware_image_ubuntu_22']
 name= admin[01
 value= 03]
-host= ['admin[01:03]']
-hostname= admin[01:03]
+host= ['admin[01=03]']
+hostname= admin[01=03]
 hostvars[0]= 
 hostvars= []
 name= vmu22-[01
 value= 03]
-host= ['vmu22-[01:03]']
-hostname= vmu22-[01:03]
+host= ['vmu22-[01=03]']
+hostname= vmu22-[01=03]
 hostvars[0]= 
 hostvars= []
 group= ['vmware_image_centos_7']
 group= ['vmware_image_centos_8']
 name= vmc08-[01
 value= 03]
-host= ['vmc08-[01:03]']
-hostname= vmc08-[01:03]
+host= ['vmc08-[01=03]']
+hostname= vmc08-[01=03]
 hostvars[0]= 
 hostvars= []
 group= ['vmware_image_windows_2012']
@@ -310,14 +310,14 @@ hostvars= []
 group= ['vmware_flavor_small']
 name= vmu22-[01
 value= 03]
-host= ['vmu22-[01:03]']
-hostname= vmu22-[01:03]
+host= ['vmu22-[01=03]']
+hostname= vmu22-[01=03]
 hostvars[0]= 
 hostvars= []
 name= vmc08-[02
 value= 03]
-host= ['vmc08-[02:03]']
-hostname= vmc08-[02:03]
+host= ['vmc08-[02=03]']
+hostname= vmc08-[02=03]
 hostvars[0]= 
 hostvars= []
 name= win2012-01
@@ -335,8 +335,8 @@ hostvars= []
 group= ['vmware_flavor_medium']
 name= admin[01
 value= 03]
-host= ['admin[01:03]']
-hostname= admin[01:03]
+host= ['admin[01=03]']
+hostname= admin[01=03]
 hostvars[0]= 
 hostvars= []
 name= vmc08-01
@@ -357,20 +357,20 @@ group= ['vmware_linux_ip_static_int_johnson']
 group= ['vmware_linux_ip_dhcp_int_johnson']
 name= admin[01
 value= 03]
-host= ['admin[01:03]']
-hostname= admin[01:03]
+host= ['admin[01=03]']
+hostname= admin[01=03]
 hostvars[0]= 
 hostvars= []
 name= vmc08-[01
 value= 03]
-host= ['vmc08-[01:03]']
-hostname= vmc08-[01:03]
+host= ['vmc08-[01=03]']
+hostname= vmc08-[01=03]
 hostvars[0]= 
 hostvars= []
 name= vmu22-[01
 value= 03]
-host= ['vmu22-[01:03]']
-hostname= vmu22-[01:03]
+host= ['vmu22-[01=03]']
+hostname= vmu22-[01=03]
 hostvars[0]= 
 hostvars= []
 group= ['vmware_linux_ip_dhcp_int_dettonville']
@@ -434,8 +434,8 @@ group= ['docker_control_node', 'children']
 group= ['docker_admin_node']
 name= admin[01
 value= 03]
-host= ['admin[01:03]']
-hostname= admin[01:03]
+host= ['admin[01=03]']
+hostname= admin[01=03]
 hostvars[0]= 
 hostvars= []
 group= ['docker_samba_node']
@@ -452,8 +452,8 @@ group= ['docker_cobbler_node']
 group= ['openstack_kolla_node']
 name= admin[01
 value= 03]
-host= ['admin[01:03]']
-hostname= admin[01:03]
+host= ['admin[01=03]']
+hostname= admin[01=03]
 hostvars[0]= 
 hostvars= []
 group= ['nginx_service']
@@ -513,10 +513,10 @@ hostvars= []
 group= ['windows']
 name= win2012-01 become_method
 value= runas
-host= ['win2012-01', 'become_method:runas']
+host= ['win2012-01', 'become_method=runas']
 hostname= win2012-01
-hostvars[0]= become_method:runas
-hostvars= []
+hostvars[0]= become_method=runas
+hostvars= [('become_method', 'runas')]
 name= ljlaptop
 value= None
 host= ['ljlaptop']
@@ -577,7 +577,7 @@ all:
       children:
         control_node: {}
       hosts:
-        admin[01:03]: {}
+        admin[01=03]: {}
     cloudstack_cluster:
       children:
         cloudstack_compute: {}
@@ -607,7 +607,7 @@ all:
         vmware_vm: {}
     docker_admin_node:
       hosts:
-        admin[01:03]: {}
+        admin[01=03]: {}
     docker_awx_node:
       children:
         control_node: {}
@@ -676,6 +676,7 @@ all:
       hosts:
         localhost:
           ansible_connection: local
+          ansible_host: 127.0.0.1
     machine_baremetal:
       children:
         baremetal_linux: {}
@@ -728,7 +729,7 @@ all:
         openstack_storage: {}
     openstack_kolla_node:
       hosts:
-        admin[01:03]: {}
+        admin[01=03]: {}
     os_centos:
       children:
         os_centos_7: {}
@@ -805,24 +806,24 @@ all:
         vmware_physical_esx_host: {}
     vmware_flavor_medium:
       hosts:
-        admin[01:03]: {}
+        admin[01=03]: {}
         vmc08-01: {}
     vmware_flavor_small:
       hosts:
-        vmc08-[02:03]: {}
-        vmu22-[01:03]: {}
+        vmc08-[02=03]: {}
+        vmu22-[01=03]: {}
         win2012-01: {}
         win2019-01: {}
     vmware_image_centos_8:
       hosts:
-        vmc08-[01:03]: {}
+        vmc08-[01=03]: {}
     vmware_image_ubuntu_20:
       hosts:
         vcontrol01: {}
     vmware_image_ubuntu_22:
       hosts:
-        admin[01:03]: {}
-        vmu22-[01:03]: {}
+        admin[01=03]: {}
+        vmu22-[01=03]: {}
     vmware_image_windows_2012:
       hosts:
         win2012-01: {}
@@ -842,9 +843,9 @@ all:
         vmware_linux_ip_dhcp_int_johnson: {}
     vmware_linux_ip_dhcp_int_johnson:
       hosts:
-        admin[01:03]: {}
-        vmc08-[01:03]: {}
-        vmu22-[01:03]: {}
+        admin[01=03]: {}
+        vmc08-[01=03]: {}
+        vmu22-[01=03]: {}
     vmware_linux_ip_static:
       children:
         vmware_linux_ip_static_int_johnson: {}
@@ -905,7 +906,8 @@ all:
         vmware_vm_windows: {}
       hosts:
         ljlaptop: {}
-        win2012-01: {}
+        win2012-01:
+          become_method: runas
       vars:
         ansible_connection: winrm
         ansible_port: 5986
