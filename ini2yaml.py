@@ -56,6 +56,9 @@ for section in config.sections():
   group = section.split(':')
   if len(group) == 1:  # section contains host group
     for name, value in config.items(section):
+      print("name=", name)
+      print("value=", value)
+
       if value:
         # value = name + '=' + value
         value = name + ':' + value
