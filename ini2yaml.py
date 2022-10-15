@@ -54,11 +54,11 @@ def parse_value(v):
 
 for section in config.sections():
   group = section.split(':')
-  print("group=", group)
+  # print("group=", group)
   if len(group) == 1:  # section contains host group
     for name, value in config.items(section):
-      print("name=", name)
-      print("value=", value)
+      # print("name=", name)
+      # print("value=", value)
 
       if value:
         value = name + '=' + value
@@ -68,13 +68,13 @@ for section in config.sections():
       # print("value=", value)
 
       host = re.split(' |\t', value, 1)
-      print("host=", host)
+      # print("host=", host)
       hostname = host[0].replace('=', ':')
-      print("hostname=", hostname)
+      # print("hostname=", hostname)
       hostvars = host[1] if len(host) > 1 else ''
-      print("hostvars[0]=", hostvars)
+      # print("hostvars[0]=", hostvars)
       hostvars = varRegex.findall(hostvars)
-      print("hostvars=", hostvars)
+      # print("hostvars=", hostvars)
 
       inventory.setdefault('all', {}).setdefault('children', {}).setdefault(group[0], {}).setdefault('hosts', {})[hostname] = {}
       for hostvar in hostvars:
