@@ -56,11 +56,11 @@ for section in config.sections():
   group = section.split(':')
   if len(group) == 1:  # section contains host group
     for name, value in config.items(section):
-      # if value:
-      #   value = name + '=' + value
-      # else:
-      #   value = name
-      value = name
+      if value:
+        # value = name + '=' + value
+        value = name + ':' + value
+      else:
+        value = name
       host = re.split(' |\t', value, 1)
       hostname = host[0]
       hostvars = host[1] if len(host) > 1 else ''
