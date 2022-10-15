@@ -61,13 +61,16 @@ for section in config.sections():
         value = name + ':' + value
       else:
         value = name
-      print("value=", value)
+      # print("value=", value)
 
       host = re.split(' |\t', value, 1)
       print("host=", host)
       hostname = host[0]
+      print("hostname=", hostname)
       hostvars = host[1] if len(host) > 1 else ''
+      print("hostvars[0]=", hostvars)
       hostvars = varRegex.findall(hostvars)
+      print("hostvars=", hostvars)
 
       inventory.setdefault('all', {}).setdefault('children', {}).setdefault(group[0], {}).setdefault('hosts', {})[hostname] = {}
       for hostvar in hostvars:
