@@ -54,6 +54,7 @@ def parse_value(v):
 
 for section in config.sections():
   group = section.split(':')
+  print("group=", group)
   if len(group) == 1:  # section contains host group
     for name, value in config.items(section):
       print("name=", name)
