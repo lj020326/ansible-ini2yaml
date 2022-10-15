@@ -61,8 +61,8 @@ for section in config.sections():
       print("value=", value)
 
       if value:
-        # value = name + '=' + value
-        value = name + ':' + value
+        value = name + '=' + value
+        # value = name + ':' + value
       else:
         value = name
       # print("value=", value)
