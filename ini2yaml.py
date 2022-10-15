@@ -61,7 +61,10 @@ for section in config.sections():
         value = name + ':' + value
       else:
         value = name
+      print("value=", host)
+
       host = re.split(' |\t', value, 1)
+      print("host=", host)
       hostname = host[0]
       hostvars = host[1] if len(host) > 1 else ''
       hostvars = varRegex.findall(hostvars)

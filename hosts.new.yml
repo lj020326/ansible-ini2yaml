@@ -50,7 +50,7 @@ all:
       children:
         control_node: {}
       hosts:
-        admin[01: {}
+        admin[01:03]: {}
     cloudstack_cluster:
       children:
         cloudstack_compute: {}
@@ -80,7 +80,7 @@ all:
         vmware_vm: {}
     docker_admin_node:
       hosts:
-        admin[01: {}
+        admin[01:03]: {}
     docker_awx_node:
       children:
         control_node: {}
@@ -147,7 +147,8 @@ all:
         media01: {}
     local:
       hosts:
-        localhost: {}
+        localhost:
+          ansible_connection: local
     machine_baremetal:
       children:
         baremetal_linux: {}
@@ -200,7 +201,7 @@ all:
         openstack_storage: {}
     openstack_kolla_node:
       hosts:
-        admin[01: {}
+        admin[01:03]: {}
     os_centos:
       children:
         os_centos_7: {}
@@ -277,24 +278,24 @@ all:
         vmware_physical_esx_host: {}
     vmware_flavor_medium:
       hosts:
-        admin[01: {}
+        admin[01:03]: {}
         vmc08-01: {}
     vmware_flavor_small:
       hosts:
-        vmc08-[02: {}
-        vmu22-[01: {}
+        vmc08-[02:03]: {}
+        vmu22-[01:03]: {}
         win2012-01: {}
         win2019-01: {}
     vmware_image_centos_8:
       hosts:
-        vmc08-[01: {}
+        vmc08-[01:03]: {}
     vmware_image_ubuntu_20:
       hosts:
         vcontrol01: {}
     vmware_image_ubuntu_22:
       hosts:
-        admin[01: {}
-        vmu22-[01: {}
+        admin[01:03]: {}
+        vmu22-[01:03]: {}
     vmware_image_windows_2012:
       hosts:
         win2012-01: {}
@@ -314,9 +315,9 @@ all:
         vmware_linux_ip_dhcp_int_johnson: {}
     vmware_linux_ip_dhcp_int_johnson:
       hosts:
-        admin[01: {}
-        vmc08-[01: {}
-        vmu22-[01: {}
+        admin[01:03]: {}
+        vmc08-[01:03]: {}
+        vmu22-[01:03]: {}
     vmware_linux_ip_static:
       children:
         vmware_linux_ip_static_int_johnson: {}
